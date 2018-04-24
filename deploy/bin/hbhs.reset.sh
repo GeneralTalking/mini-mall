@@ -10,17 +10,17 @@
 # 重置数据库
 # i. 请在`XXXXXX`处设置相应的root密码
 # ii. 同时请注意root密码放在脚本是非常危险的，因此这里仅仅是用于开发测试阶段。
-cd /opt/service/mini-mall/deploy/litemall-db
+cd /opt/service/mini-mall/litemall-db
 cat litemall_schema.sql > db.sql
 cat litemall.sql >> db.sql
 mysql -h localhost -u root -p1qaz@WSX < db.sql
 rm db.sql
-cd /opt/service/mini-mall/deploy/litemall-db
+cd /opt/service/mini-mall/litemall-db
 
 # 删除storage文件夹内文件
-cd /opt/service/mini-mall/deploy/litemall-os-api/storage
+cd /opt/service/mini-mall/litemall-os-api/storage
 rm -f ./**
 
 # 重新部署服务
-cd /opt/service/mini-mall/deploy/bin
+cd /opt/service/mini-mall/bin
 sudo ./deploy.sh

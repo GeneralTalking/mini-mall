@@ -26,4 +26,4 @@ cp  -f ./litemall-db/sql/litemall_schema.sql ./deploy/litemall-db/litemall_schem
 cp  -f ./litemall-db/sql/litemall.sql ./deploy/litemall-db/litemall.sql
 
 # 上传云主机
-scp -i $ID_RSA -r  ./deploy root@$CVM:/opt/service/mini-mall/
+scp -i $ID_RSA -r  ./deploy/* root@$CVM:/opt/service/mini-mall/
