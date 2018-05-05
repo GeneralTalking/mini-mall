@@ -131,6 +131,11 @@
     </view>
   </view>
   <view class="bottom-btn">
+    <view class="l l-cart">
+      <view class="box">
+        <image bindtap="redirectHomePage" class="icon" src="/static/images/ic_menu_choice_nor.png"></image>
+      </view>
+    </view>
     <view class="l l-collect {{ openAttr ? 'back' : ''}}" bindtap="closeAttrOrCollect">
       <image class="icon" src="{{ collectBackImage }}"></image>
     </view>

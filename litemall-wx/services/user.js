@@ -28,6 +28,8 @@ function login() {
   return new Promise(function (resolve, reject) {
     wx.login({
       success: function (res) {
+        console.log("微信登陆成功: ");
+        console.log(res);
         if (res.code) {
           resolve(res);
         } else {
@@ -35,6 +37,8 @@ function login() {
         }
       },
       fail: function (err) {
+        console.log("微信登陆失败: ");
+        console.log(err);
         reject(err);
       }
     });
@@ -49,10 +53,13 @@ function getUserInfo() {
     wx.getUserInfo({
       withCredentials: true,
       success: function (res) {
+        console.log("获取微信用户信息成功: ")
+        console.log(res);
         resolve(res);
       },
       fail: function (err) {
-
+        console.log("获取微信用户信息失败: ")
+        console.log(err);
         wx.showModal({
           title: '用户未授权',
           content: '请给予您的用户信息授权。',
@@ -93,8 +100,11 @@ function loginByWeixin() {
       code = res.code;
       return getUserInfo();
     }).then((userInfo) => {
+      console.log("开始调用服务保存用户信息...")
       //登录远程服务器
       util.request(api.AuthLoginByWeixin, { code: code, userInfo: userInfo }, 'POST').then(res => {
+        console.log("保存用户信息返回：");
+        console.log(res);
         if (res.errno === 0) {
           //存储用户信息
           wx.setStorageSync('userInfo', res.data.userInfo);
@@ -105,9 +115,13 @@ function loginByWeixin() {
           reject(res);
         }
       }).catch((err) => {
+        console.log("保存用户信息失败：");
+        console.log(err);
         reject(err);
       });
     }).catch((err) => {
+      console.log("保存用户信息失败：");
+      console.log(err);
       reject(err);
     })
   });

@@ -91,6 +91,12 @@ Page({
             }
           });
 
+        }else{
+          wx.showModal({
+            title: '错误信息',
+            content: res.data.errmsg,
+            showCancel: false
+          });
         }
       }
     });

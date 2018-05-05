@@ -1,7 +1,6 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/catalog/catalog",
     "pages/newGoods/newGoods",
     "pages/hotGoods/hotGoods",
     "pages/ucenter/index/index",        
@@ -33,16 +32,17 @@
     "pages/goods/goods"
   ],
   "window": {
-    "backgroundTextStyle": "dark",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "仿网易严选",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FFCCCC",
+    "navigationBarTitleText": "我爱败家",
     "navigationBarTextStyle": "black",
+    "backgroundColor": "#ffccff",
     "enablePullDownRefresh": true
   },
   "tabBar": {
-    "backgroundColor": "#fafafa",
+    "backgroundColor": "#FFCCCC",
     "borderStyle": "white",
-    "selectedColor": "#b4282d",
+    "selectedColor": "#666",
     "color": "#666",
     "list": [
       {
@@ -50,12 +50,6 @@
         "iconPath": "static/images/ic_menu_choice_nor.png",
         "selectedIconPath": "static/images/ic_menu_choice_pressed.png",
         "text": "首页"
-      },
-      {
-        "pagePath": "pages/catalog/catalog",
-        "iconPath": "static/images/ic_menu_sort_nor.png",
-        "selectedIconPath": "static/images/ic_menu_sort_pressed.png",
-        "text": "分类"
       },
       {
         "pagePath": "pages/cart/cart",

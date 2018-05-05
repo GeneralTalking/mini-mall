@@ -470,5 +470,10 @@ Page({
     this.setData({
       number: this.data.number + 1
     });
+  },
+  redirectHomePage: function(){
+    wx.switchTab({
+      url: '../index/index',
+    })
   }
 })
