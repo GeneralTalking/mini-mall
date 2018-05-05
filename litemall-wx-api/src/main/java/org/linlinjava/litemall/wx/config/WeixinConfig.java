@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class WeixinConfig {
-    public static final String WX_AppId = "wxa5b486c6b918ecfb";
-    public static final String WX_Secret = "e04004829d4c383b4db7769d88dfbca1";
+    public static final String WX_AppId = "wx5877ed8b6c4dcc4e";
+    public static final String WX_Secret = "1a0548490a616eb2350aaa2023a14930";
     public static final String WX_Token = "";
     public static final String WX_AesKey = "";
     public static final String WX_MsgDataFormat = "JSON";
