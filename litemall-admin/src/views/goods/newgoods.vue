@@ -307,6 +307,7 @@ export default {
     handleListPicUrlSuccess(res, file, fileList, $event) {
       this.dataForm.listPicUrl = imgURLHeader + file.response.key
       this.listPicFileList = fileList
+      // console.log(fileList)
     },
     handleListPicUrlRemove(file, fileList) {
       this.dataForm.listPicUrl = ''
@@ -319,21 +320,39 @@ export default {
       })
       console.log(this.dataForm.gallery)
     },
-    handleAvatarSuccess(res, file, fileList, $event) {
+    handleAvatarSuccess(res, file, newFileList, $event) {
       // this.imageUrl = imgURLHeader + res.key
       // this.fileList.push({
       //   name: res.key,
       //   url: imgURLHeader + res.key
       // })
-      this.fileList = fileList
     },
-    handleChange(file, fileList) {
+    handleChange(file, newFileList) {
+      // console.log(newFileList)
+      // this.fileList = []
+      // newFileList.forEach(item => {
+      //   console.log(item)
+      //   if (item.response) {
+      //     this.fileList.push({
+      //       name: item.response.key,
+      //       url: imgURLHeader + item.response.key
+      //     })
+      //   } else {
+      //     this.fileList.push({
+      //       name: item.name,
+      //       url: item.url
+      //     })
+      //   }
+      // })
+      // this.fileList = fileList
+      // console.log(this.fileList)
+      // console.log(file)
     },
     handleError(res) {
       console.log(res)
     },
     handleRemove(file, fileList) {
-      this.fileList = fileList
+      // this.fileList = fileList
     },
     beforeAvatarUpload(file) {
       const isJPG = file.type === 'image/jpeg'
@@ -393,6 +412,8 @@ export default {
       }
       // clear update galary
       // this.$refs.upload.clearFiles()
+      this.fileList = []
+      this.listPicFileList = []
     },
     filterLevel(value, row) {
       return row.level === value
@@ -422,14 +443,18 @@ export default {
     createData() {
       // set main image
       this.dataForm.listPicFileList = ''
-      if (this.listPicFileList.length === 0) {
+      if (this.listPicFileList.length === 1) {
         this.dataForm.listPicFileList = this.listPicFileList[0].url
       }
       // set gallery images
       this.dataForm.gallery = []
-      for (let j = 0; j < this.fileList.length; j++) {
-        this.dataForm.gallery.push(this.fileList[j].url)
-      }
+      this.$refs.uploadGalary.uploadFiles.forEach(item => {
+        if (item.response) {
+          this.dataForm.gallery.push(imgURLHeader + item.response.key)
+        } else {
+          this.dataForm.gallery.push(item.url)
+        }
+      })
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           createGoods(this.dataForm).then(response => {
@@ -449,17 +474,14 @@ export default {
       this.dataForm = Object.assign({}, row)
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
-      // console.log(this.dataForm)
-      // let list = []
-      // this.dataForm.gallery.forEach((item => {
-      //   this.dataForm.gallery.push(imgURLHeader + item.response.key)
-      // })
       // update main image
       this.listPicFileList = []
-      this.listPicFileList.push({
-        name: 0,
-        url: this.dataForm.listPicUrl
-      })
+      if (this.dataForm.listPicUrl !== '') {
+        this.listPicFileList.push({
+          name: 0,
+          url: this.dataForm.listPicUrl
+        })
+      }
       // update gallary
       this.fileList = []
       for (let j = 0; j < this.dataForm.gallery.length; j++) {
@@ -475,21 +497,23 @@ export default {
     cancelData() {
       this.$refs.uploadGalary.clearFiles()
       this.$refs.uploadlistPicUrl.clearFiles()
-      // clean the galary
-      // console.log(this.fileList)
-      // this.fileList = []
     },
     updateData() {
       // set main image
       this.dataForm.listPicFileList = ''
-      if (this.listPicFileList.length === 0) {
+      if (this.listPicFileList.length === 1) {
         this.dataForm.listPicFileList = this.listPicFileList[0].url
       }
-      // set gallery images
+      // // set gallery images
       this.dataForm.gallery = []
-      for (let j = 0; j < this.fileList.length; j++) {
-        this.dataForm.gallery.push(this.fileList[j].url)
-      }
+      this.$refs.uploadGalary.uploadFiles.forEach(item => {
+        if (item.response) {
+          this.dataForm.gallery.push(imgURLHeader + item.response.key)
+        } else {
+          this.dataForm.gallery.push(item.url)
+        }
+      })
+      console.log(this.$refs.uploadGalary.uploadFiles)
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           updateGoods(this.dataForm).then(() => {
