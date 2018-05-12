@@ -104,7 +104,8 @@ export const asyncRouterMap = [
       { path: 'attribute', component: _import('goods/attribute'), name: 'attribute', meta: { title: '商品参数', noCache: true }},
       { path: 'specification', component: _import('goods/specification'), name: 'specification', meta: { title: '商品规格', noCache: true }},
       { path: 'product', component: _import('goods/product'), name: 'product', meta: { title: '货品管理', noCache: true }},
-      { path: 'comment', component: _import('goods/comment'), name: 'comment', meta: { title: '用户评论', noCache: true }}
+      { path: 'comment', component: _import('goods/comment'), name: 'comment', meta: { title: '用户评论', noCache: true }},
+      { path: 'newgoods', component: _import('goods/newgoods'), name: 'newgoods', meta: { title: '新商品管理', noCache: true }}
     ]
   },
   {
