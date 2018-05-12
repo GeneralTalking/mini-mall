@@ -357,7 +357,6 @@ public class WxCartController {
 
     /**
      * 购物车商品删除
-     * 如果原来没有勾选，则设置勾选状态；如果商品已经勾选，则设置非勾选状态。
      *
      * @param userId 用户ID
      * @param body 购物车商品信息， { productIds: xxx }
@@ -381,11 +380,11 @@ public class WxCartController {
         
         List<Integer> productIds = JacksonUtil.parseIntegerList(body, "productIds");
 
-        if(productIds == null){
+        if(productIds == null || productIds.size() == 0){
             return ResponseUtil.badArgument();
         }
 
-        cartService.delete(productIds, 1);
+        cartService.delete(productIds, userId);
         return index(userId);
     }
 
@@ -515,11 +514,12 @@ public class WxCartController {
         BigDecimal orderTotalPrice = checkedGoodsPrice.add(freightPrice).subtract(couponPrice);
         BigDecimal actualPrice = orderTotalPrice.subtract(integralPrice);
 
-        Map<String, Object> data = new HashMap();
+        Map<String, Object> data = new HashMap<>();
         data.put("addressId", addressId);
         data.put("checkedAddress", checkedAddress);
         data.put("couponId", couponId);
         data.put("checkedCoupon", 0);
+        data.put("couponList", "");
         data.put("goodsTotalPrice", checkedGoodsPrice);
         data.put("freightPrice", freightPrice);
         data.put("couponPrice", couponPrice);

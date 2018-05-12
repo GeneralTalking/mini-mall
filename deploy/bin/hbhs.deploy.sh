@@ -31,3 +31,7 @@ sudo ln -f -s /opt/service/mini-mall/litemall-admin-api/litemall-admin-api.jar /
 sudo /etc/init.d/litemall-os-api restart
 sudo /etc/init.d/litemall-wx-api restart
 sudo /etc/init.d/litemall-admin-api restart
+
+# tomcat8服务也启动
+sudo service tomcat8 stop
+sudo service tomcat8 start
