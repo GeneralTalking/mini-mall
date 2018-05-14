@@ -1,11 +1,11 @@
 // 以下是业务服务器API地址
 // 本机开发时使用
-var WxApiRoot = 'http://192.168.30.253:8082/wx/';
+// var WxApiRoot = 'http://192.168.30.253:8082/wx/';
 // 局域网测试使用
 // var WxApiRoot = 'http://192.168.0.101:8082/wx/';
 // 云平台部署时使用
 // var WxApiRoot = 'http://122.152.206.172:8082/wx/';
-// var WxApiRoot = 'https://www.941fx.cn/wx-api/wx/'
+ var WxApiRoot = 'https://www.941fx.cn/wx-api/wx/'
 
 // 以下是图片存储服务器API地址
 // 本机开发时使用
