@@ -136,12 +136,7 @@ public class LitemallOrderService {
     }
 
     public void deleteById(Integer id) {
-        LitemallOrder order = orderMapper.selectByPrimaryKey(id);
-        if(order == null){
-            return;
-        }
-        order.setDeleted(true);
-        orderMapper.updateByPrimaryKey(order);
+        orderMapper.logicalDeleteByPrimaryKey(id);
     }
 
     public int count() {
@@ -158,7 +153,7 @@ public class LitemallOrderService {
 
     public List<LitemallOrder> queryUnconfirm() {
         LitemallOrderExample example = new LitemallOrderExample();
-        example.or().andOrderStatusEqualTo(OrderUtil.STATUS_SHIP).andShipEndTimeIsNotNull().andDeletedEqualTo(false);
+        example.or().andOrderStatusEqualTo(OrderUtil.STATUS_SHIP).andShipStartTimeIsNotNull().andDeletedEqualTo(false);
         return orderMapper.selectByExample(example);
     }
 
