@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/indexnew/indexnew",
     "pages/newGoods/newGoods",
     "pages/hotGoods/hotGoods",
     "pages/ucenter/index/index",        
@@ -46,7 +47,7 @@
     "color": "#666",
     "list": [
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/indexnew/indexnew",
         "iconPath": "static/images/ic_menu_choice_nor.png",
         "selectedIconPath": "static/images/ic_menu_choice_pressed.png",
         "text": "首页"

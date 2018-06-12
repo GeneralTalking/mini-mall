@@ -28,11 +28,17 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 13,
 			"list": [
 				{
 					"id": -1,
 					"name": "首页",
+					"pathName": "pages/indexnew/indexnew",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "首页-OLD",
 					"pathName": "pages/index/index",
 					"query": ""
 				},
