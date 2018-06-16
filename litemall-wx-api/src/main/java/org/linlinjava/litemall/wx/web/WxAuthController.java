@@ -5,6 +5,7 @@ import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import me.chanjar.weixin.common.exception.WxErrorException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.linlinjava.litemall.core.util.RegexUtil;
 import org.linlinjava.litemall.db.domain.LitemallUser;
 import org.linlinjava.litemall.db.service.LitemallUserService;
 import org.linlinjava.litemall.core.util.JacksonUtil;
@@ -68,7 +69,7 @@ public class WxAuthController {
         List<LitemallUser> userList =userService.queryByUsername(username);
         LitemallUser user = null;
         if(userList.size() > 1){
-            return ResponseUtil.fail502();
+            return ResponseUtil.serious();
         }
         else if(userList.size() == 0){
             return ResponseUtil.badArgumentValue();
@@ -215,6 +216,9 @@ public class WxAuthController {
         if(userList.size() > 0){
             return ResponseUtil.fail(403, "手机号已注册");
         }
+        if(!RegexUtil.isMobileExact(mobile)){
+            return ResponseUtil.fail(403, "手机号格式不正确");
+        }
         LitemallUser user = new LitemallUser();
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -233,6 +237,7 @@ public class WxAuthController {
         user.setStatus("可用");
         user.setLastLoginTime(LocalDateTime.now());
         user.setLastLoginIp(IpUtil.client(request));
+        user.setAddTime(LocalDateTime.now());
         userService.add(user);
 
 

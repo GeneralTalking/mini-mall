@@ -396,13 +396,8 @@
   display: none;  
 }  
 
-.search{    
-  position: fixed;
-  top: 0px;  
-  left: 0;  
-  width: 100%;  
-  z-index: 999;
-  background-color: #FFF0F5
+.search{  
+  width: 80%;  
 }  
 .search_arr {  
   border: 1px solid #d0d0d0;  

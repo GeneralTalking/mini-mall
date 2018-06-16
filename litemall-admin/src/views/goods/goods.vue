@@ -146,15 +146,17 @@
         </el-form-item>
         
         <el-form-item label="宣传画廊">
-          <el-input v-model="dataForm.gallery"></el-input>
-        </el-form-item>            
+          <el-upload :action='UPLOAD_API' :limit='5' multiple accept=".jpg,.jpeg,.png,.gif" :file-list="galleryFileList" list-type="picture" :on-exceed='uploadOverrun' :on-success="handleGalleryUrl" :on-remove="handleRemove">
+            <el-button size="small" type="primary">点击上传</el-button>
+          </el-upload>
+        </el-form-item>        
         
         <el-form-item label="商品介绍">
           <el-input v-model="dataForm.goodsBrief"></el-input>
         </el-form-item> 
             
         <el-form-item style="width: 700px;" label="商品详细介绍">
-          <tinymce v-model="dataForm.goodsDesc"></tinymce>
+          <editor :init="editorInit" v-model="dataForm.goodsDesc"></editor>
         </el-form-item>
         
         <el-form-item label="商品主图">
@@ -207,17 +209,20 @@
 
 <script>
 import { listGoods, createGoods, updateGoods, deleteGoods } from '@/api/goods'
+import { createStorage, getUploadApi } from '@/api/storage'
 import waves from '@/directive/waves' // 水波纹指令
 import BackToTop from '@/components/BackToTop'
-import Tinymce from '@/components/Tinymce'
+import Editor from '@tinymce/tinymce-vue'
 
 export default {
   name: 'Goods',
-  components: { BackToTop, Tinymce },
+  components: { BackToTop, Editor },
   directives: { waves },
   data() {
     return {
       list: undefined,
+      galleryFileList: [],
+      UPLOAD_API: getUploadApi(),
       total: undefined,
       listLoading: true,
       listQuery: {
@@ -239,9 +244,9 @@ export default {
         listPicUrl: undefined,
         primaryPicUrl: undefined,
         goodsBrief: undefined,
-        goodsDesc: undefined,
+        goodsDesc: '',
         keywords: undefined,
-        gallery: undefined,
+        gallery: [],
         categoryId: undefined,
         brandId: undefined
       },
@@ -255,7 +260,21 @@ export default {
         goodsSn: [{ required: true, message: '商品编号不能为空', trigger: 'blur' }],
         name: [{ required: true, message: '商品名称不能为空', trigger: 'blur' }]
       },
-      downloadLoading: false
+      downloadLoading: false,
+      editorInit: {
+        language: 'zh_CN',
+        plugins: ['advlist anchor autolink autoresize autosave code codesample colorpicker colorpicker contextmenu directionality emoticons fullscreen hr image imagetools importcss insertdatetime legacyoutput link lists media nonbreaking noneditable pagebreak paste preview print save searchreplace tabfocus table template textcolor textpattern visualblocks visualchars wordcount'],
+        toolbar: ['bold italic underline strikethrough alignleft aligncenter alignright outdent indent  blockquote undo redo removeformat subscript superscript ', 'hr bullist numlist link image charmap preview anchor pagebreak fullscreen media table emoticons forecolor backcolor'],
+        images_upload_handler: function(blobInfo, success, failure) {
+          const formData = new FormData()
+          formData.append('file', blobInfo.blob())
+          createStorage(formData).then(res => {
+            success(res.data.data.url)
+          }).catch(() => {
+            failure('上传失败，请重新上传')
+          })
+        }
+      }
     }
   },
   created() {
@@ -287,6 +306,7 @@ export default {
       this.getList()
     },
     resetForm() {
+      this.galleryFileList = []
       this.dataForm = {
         id: undefined,
         goodsSn: undefined,
@@ -299,15 +319,44 @@ export default {
         listPicUrl: undefined,
         primaryPicUrl: undefined,
         goodsBrief: undefined,
-        goodsDesc: undefined,
+        goodsDesc: '',
         keywords: undefined,
-        gallery: undefined,
+        gallery: [],
         categoryId: undefined,
         brandId: undefined
       }
     },
     filterLevel(value, row) {
       return row.level === value
+    },
+    uploadOverrun: function() {
+      this.$message({
+        type: 'error',
+        message: '上传文件个数超出限制!最多上传5张图片!'
+      })
+    },
+    handleGalleryUrl(response, file, fileList) {
+      if (response.errno === 0) {
+        this.dataForm.gallery.push(response.data.url)
+      }
+    },
+    handleRemove: function(file, fileList) {
+      for (var i = 0; i < this.dataForm.gallery.length; i++) {
+        // 这里存在两种情况
+        // 1. 如果所删除图片是刚刚上传的图片，那么图片地址是file.response.data.url
+        //    此时的file.url虽然存在，但是是本机地址，而不是远程地址。
+        // 2. 如果所删除图片是后台返回的已有图片，那么图片地址是file.url
+        var url
+        if (file.response === undefined) {
+          url = file.url
+        } else {
+          url = file.response.data.url
+        }
+
+        if (this.dataForm.gallery[i] === url) {
+          this.dataForm.gallery.splice(i, 1)
+        }
+      }
     },
     handleCreate() {
       this.resetForm()
@@ -335,6 +384,16 @@ export default {
     },
     handleUpdate(row) {
       this.dataForm = Object.assign({}, row)
+      this.galleryFileList = []
+      if (this.dataForm.gallery.length > 0) {
+        for (var i = 0; i < row.gallery.length; i++) {
+          this.galleryFileList.push({
+            name: row.gallery[i].substring(row.gallery[i].lastIndexOf('/') + 1),
+            url: row.gallery[i]
+          })
+        }
+      }
+
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
       this.$nextTick(() => {
