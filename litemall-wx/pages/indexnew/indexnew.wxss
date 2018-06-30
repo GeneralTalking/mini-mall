@@ -417,12 +417,12 @@
 }  
   
 .sousuo {  
-  margin-left: 15rpx;  
+  margin-left: 20rpx;  
   width: 15%;  
-  line-height: 150%;  
+  line-height: 200%;  
   text-align: center;  
   border: 1px solid #d0d0d0;  
-  border-radius: 10rpx;  
+  border-radius: 30rpx;  
 }  
 .page_row{  
   display: flex;  
