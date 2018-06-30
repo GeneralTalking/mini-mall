@@ -34,35 +34,41 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#FFCCCC",
+    "navigationBarBackgroundColor": "#F9F9F9",
     "navigationBarTitleText": "我爱败家",
     "navigationBarTextStyle": "black",
-    "backgroundColor": "#ffccff",
+    "backgroundColor": "#F9F9F9",
     "enablePullDownRefresh": true
   },
   "tabBar": {
-    "backgroundColor": "#FFCCCC",
+    "backgroundColor": "#F9F9F9",
     "borderStyle": "white",
     "selectedColor": "#666",
     "color": "#666",
     "list": [
       {
         "pagePath": "pages/indexnew/indexnew",
-        "iconPath": "static/images/ic_menu_choice_nor.png",
-        "selectedIconPath": "static/images/ic_menu_choice_pressed.png",
+        "iconPath": "static/images/ic_menu_home_nor.png",
+        "selectedIconPath": "static/images/ic_menu_home_pressed.png",
         "text": "首页"
       },
       {
+        "pagePath": "pages/indexnew/indexnew",
+        "iconPath": "static/images/ic_menu_catelog.png",
+        "selectedIconPath": "static/images/ic_menu_catelog_pressed.png",
+        "text": "分类"
+      },
+      {
         "pagePath": "pages/cart/cart",
-        "iconPath": "static/images/ic_menu_shoping_nor.png",
-        "selectedIconPath": "static/images/ic_menu_shoping_pressed.png",
+        "iconPath": "static/images/ic_menu_cart.png",
+        "selectedIconPath": "static/images/ic_menu_cart_pressed.png",
         "text": "购物车"
       },
       {
         "pagePath": "pages/ucenter/index/index",
-        "iconPath": "static/images/ic_menu_me_nor.png",
-        "selectedIconPath": "static/images/ic_menu_me_pressed.png",
-        "text": "个人"
+        "iconPath": "static/images/ic_menu_user.png",
+        "selectedIconPath": "static/images/ic_menu_user_pressed.png",
+        "text": "我的"
       }
     ]
   },

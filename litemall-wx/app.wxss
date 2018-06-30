@@ -1,7 +1,8 @@
 /**app.wxss**/
 .container {
   box-sizing: border-box;
-  background-color: #FFCCCC;
+  /* background-color: #FFCCCC; */
+  background-color: #FFFFFF;
   font-family: PingFangSC-Light,helvetica,'Heiti SC';
 } 
 

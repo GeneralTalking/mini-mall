@@ -45,7 +45,8 @@
   width: 750rpx;
   height: auto;
   overflow: hidden;
-  background: #FFF0F5;
+  /* background: #FFF0F5; */
+  background: #F9F9F9;
   color: #333;
   margin-top: 20rpx;
 }
