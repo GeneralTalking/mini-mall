@@ -30,7 +30,8 @@
     "pages/shopping/checkout/checkout",
     "pages/shopping/address/address",
     "pages/shopping/addressAdd/addressAdd",
-    "pages/goods/goods"
+    "pages/goods/goods",
+    "pages/demo/demo"
   ],
   "window": {
     "backgroundTextStyle": "light",
